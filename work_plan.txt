@@ -1,0 +1,11 @@
+Before the midpoint check-in, we want to divide the project into three major parts:
+
+Nick Integrate everything into the FPGA and create the two test benches. 3.5 hours
+Noah: Noah will implement the shift register. Estimated time: 3 hours
+Yichen: Yichen will work on implementing the input conditioner. Estimated time: 2 hours.
+
+We will meet together on Wednesday to test our devices and finish what’s necessary for the midpoint check-in. This meeting is estimated to take 2-3 hours. 
+
+After the midpoint check-in, we will finish the draft of the finite state machine and have professor review it before we implement. This meeting will probably take 1 hour, and we hope to accomplish it on Wednesday before the midpoint check-in. 
+
+After this, we will begin implementing the final SPI Memory testing. Because a recommended diagram has already been give, we estimate that the implementation and hardware synthesis of this will take 4 hours. We will finish this part as a team. We will spend another hour to finish the report after all the designs have been validated. 
