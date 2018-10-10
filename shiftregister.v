@@ -19,21 +19,14 @@ output reg             serialDataOut       // Positive edge synchronized
     integer index;
     reg [width-1:0]      shiftregistermem;
     always @(posedge clk) begin
-        // Your Code Here
-	// PISO mode is prioritized over shifting 
-	if (parallelLoad == 1) begin
-	// PISO mode
-	    shiftregistermem <= {parallelDataIn[width-1:0]};
-	end 
-	else if (peripheralClkEdge == 1) begin 
-	    // SIPO mode
-	    // Serial in and shift
-            for (index = 0; index < width - 1; index = index + 1) begin
-	        shiftregistermem[index + 1] <= shiftregistermem[index];
-	    end
-	    shiftregistermem[0] <= serialDataIn;
-	end
-	parallelDataOut <= {shiftregistermem[width-1:0]};
-	serialDataOut <= shiftregistermem[width - 1];
+    if (parallelLoad) begin
+    			shiftregistermem <= parallelDataIn;
+    		end
+    		else if (peripheralClkEdge) begin
+    			shiftregistermem <= {parallelDataOut[width-2:0], serialDataIn};
+    		end
+
+    		parallelDataOut <= shiftregistermem;
+    		serialDataOut <= shiftregistermem[width-1];
     end
 endmodule
