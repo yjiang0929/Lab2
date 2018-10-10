@@ -1,6 +1,7 @@
 //------------------------------------------------------------------------
 // Shift Register test bench
 //------------------------------------------------------------------------
+`include "shiftregister.v"
 
 module testshiftregister();
 
@@ -21,8 +22,21 @@ module testshiftregister();
     		           .parallelDataOut(parallelDataOut), 
     		           .serialDataOut(serialDataOut));
     
+    initial clk=0;
+    always #10 clk=!clk;    // 50MHz Clock
+
     initial begin
-    	// Your Test Code
+        // Be sure to test each of the three conditioner functions:
+        $dumpfile("shiftregister.vcd");
+        $dumpvars();
+        #5000 parallelDataIn=8'b10101010; serialDataIn=0; peripheralClkEdge=0; parallelLoad=1;
+        $display(" %b | %b ", serialDataOut, parallelDataOut);
+        #500 parallelDataIn=8'b10101010; serialDataIn=0; peripheralClkEdge=1; parallelLoad=0;
+        $display(" %b | %b ", serialDataOut, parallelDataOut);
+        #5000 parallelDataIn=8'b10101010; serialDataIn=0; peripheralClkEdge=1; parallelLoad=0;
+        $display(" %b | %b ", serialDataOut, parallelDataOut);
+        #5000 parallelDataIn=8'b10101010; serialDataIn=0; peripheralClkEdge=0; parallelLoad=1;
+        $display(" %b | %b ", serialDataOut, parallelDataOut);
     end
 
 endmodule
