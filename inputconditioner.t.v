@@ -29,14 +29,31 @@ module testConditioner();
     // Synchronization, Debouncing, Edge Detection
     $dumpfile("inputconditioner.vcd");
     $dumpvars();
-    #500 pin=1;
-    $display(" %b | %b | %b | %b ", pin, conditioned, rising, falling);
-    #500 pin=0;
-    $display(" %b | %b | %b | %b ", pin, conditioned, rising, falling);
-    #500 pin=1;
-    $display(" %b | %b | %b | %b ", pin, conditioned, rising, falling);
-    #500 pin=0;
-    $display(" %b | %b | %b | %b ", pin, conditioned, rising, falling);
+    //testing input synchronization
+    #100 pin=1;
+    #100 pin=0;
+    #100 pin=1;
+    #100 pin=0;
+    #200 pin=1;
+    //testing input debouncing
+    #5 pin=0;
+    #5 pin=1;
+    #5 pin=0;
+    #5 pin=1;
+    #5 pin=0;
+    #5 pin=1;
+    #200 pin=0;
+    #5 pin=1;
+    #5 pin=0;
+    #5 pin=1;
+    #5 pin=0;
+    #5 pin=1;
+    #5 pin=0;
+    //testing edge detection
+    #200 pin=1;
+    #200 pin=0;
+    #200 pin=1;
+    #200 pin=0;
     end
 
 endmodule
