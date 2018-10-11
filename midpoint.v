@@ -63,20 +63,17 @@ module midpoint
 endmodule
 
 //-----------------------------------------------------------------------------
-// Main Lab 0 wrapper module
+// Main Lab 2 wrapper module
 //   Interfaces with switches, buttons, and LEDs on ZYBO board. Allows for two
-//   4-bit operands to be stored, and two results to be alternately displayed
+//   results to be alternately displayed
 //   to the LEDs.
-//
-//   You must write the FullAdder4bit (in your adder.v) to complete this module.
-//   Challenge: write your own interface module instead of using this one.
 //-----------------------------------------------------------------------------
 
-module lab0_wrapper
+module lab2_wrapper
 (
     input        clk,
     input  [1:0] sw,
-    input   btn,
+    input  [2:0] btn,
     output [3:0] led
 );
 
@@ -84,13 +81,13 @@ module lab0_wrapper
     wire[3:0] res0, res1;     // Output display options
     wire res_sel;             // Select between display options
 
-    // Capture button input to switch which MUX input to LEDs
-    jkff1 src_sel(.trigger(clk), .j(btn[3]), .k(btn[2]), .q(res_sel));
+    // select bits to display
+    jkff1 src_sel(.trigger(clk), .j(btn[2]), .k(btn[1]), .q(res_sel));
     mux2 #(4) output_select(.in0(res0), .in1(res1), .sel(res_sel), .out(led));
 
-    // TODO: You write this in your adder.v
+    // instantiate midpoint module
     parameter pIn = 8'hA5;
-    midpoint mid(clk, sw[0], sw[1], btn, pIn, res);
+    midpoint mid(clk, sw[0], sw[1], btn[0], pIn, res);
 
     // Assign bits of second display output to show carry out and overflow
     assign res0[0] = res[0];
