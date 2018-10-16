@@ -18,7 +18,6 @@ module testConditioner();
 			 .positiveedge(rising),
 			 .negativeedge(falling));
 
-
     // Generate clock (50MHz)
     initial clk=0;
     always #10 clk=!clk;    // 50MHz Clock
@@ -29,11 +28,13 @@ module testConditioner();
     // Synchronization, Debouncing, Edge Detection
     $dumpfile("inputconditioner.vcd");
     $dumpvars();
-    //testing input synchronization
+    //testing input synchronization and edge detection with different frequencies
     #100 pin=1;
     #100 pin=0;
     #100 pin=1;
     #100 pin=0;
+    #200 pin=1;
+    #200 pin=0;
     #200 pin=1;
     //testing input debouncing
     #5 pin=0;
@@ -49,11 +50,8 @@ module testConditioner();
     #5 pin=0;
     #5 pin=1;
     #5 pin=0;
-    //testing edge detection
-    #200 pin=1;
-    #200 pin=0;
-    #200 pin=1;
-    #200 pin=0;
+    #500
+    $finish();
     end
 
 endmodule
