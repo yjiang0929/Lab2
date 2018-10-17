@@ -49,39 +49,39 @@ always @ (sout)
 begin
   next_state = 0;
   case (state)
-    IDLE : next_state = GETTING_ADDR_0
-    GETTING_ADDR_0 : next_state = GETTING_ADDR_1
-    GETTING_ADDR_1 : next_state = GETTING_ADDR_2
-    GETTING_ADDR_2 : next_state = GETTING_ADDR_3
-    GETTING_ADDR_3 : next_state = GETTING_ADDR_4
-    GETTING_ADDR_4 : next_state = GETTING_ADDR_5
-    GETTING_ADDR_5 : next_state = GETTING_ADDR_6
-    GETTING_ADDR_6 : next_state = GOT_ADDR
+    IDLE : next_state = GETTING_ADDR_0;
+    GETTING_ADDR_0 : next_state = GETTING_ADDR_1;
+    GETTING_ADDR_1 : next_state = GETTING_ADDR_2;
+    GETTING_ADDR_2 : next_state = GETTING_ADDR_3;
+    GETTING_ADDR_3 : next_state = GETTING_ADDR_4;
+    GETTING_ADDR_4 : next_state = GETTING_ADDR_5;
+    GETTING_ADDR_5 : next_state = GETTING_ADDR_6;
+    GETTING_ADDR_6 : next_state = GOT_ADDR;
     GOT_ADDR : if (sout=1) begin
-                  next_state = DATA_MASTER_0
+                  next_state = DATA_MASTER_0;
                 end else begin
-                  next_state = DATA_DM
+                  next_state = DATA_DM;
                 end
 
-    DATA_MASTER_0 : next_state = DATA_MASTER_1
-    DATA_MASTER_1 : next_state = DATA_MASTER_2
-    DATA_MASTER_2 : next_state = DATA_MASTER_3
-    DATA_MASTER_3 : next_state = DATA_MASTER_4
-    DATA_MASTER_4 : next_state = DATA_MASTER_5
-    DATA_MASTER_5 : next_state = DATA_MASTER_6
-    DATA_MASTER_6 : next_state = DATA_MASTER_7
-    DATA_MASTER_7 : next_state = SAVE_TO_DM
-    SAVE_TO_DM : next_state = IDLE
+    DATA_MASTER_0 : next_state = DATA_MASTER_1;
+    DATA_MASTER_1 : next_state = DATA_MASTER_2;
+    DATA_MASTER_2 : next_state = DATA_MASTER_3;
+    DATA_MASTER_3 : next_state = DATA_MASTER_4;
+    DATA_MASTER_4 : next_state = DATA_MASTER_5;
+    DATA_MASTER_5 : next_state = DATA_MASTER_6;
+    DATA_MASTER_6 : next_state = DATA_MASTER_7;
+    DATA_MASTER_7 : next_state = SAVE_TO_DM;
+    SAVE_TO_DM : next_state = IDLE;
 
-    DATA_DM : next_state = SAVE_TO_MASTER_0
-    SAVE_TO_MASTER_0 : next_state = SAVE_TO_MASTER_1
-    SAVE_TO_MASTER_1 : next_state = SAVE_TO_MASTER_2
-    SAVE_TO_MASTER_2 : next_state = SAVE_TO_MASTER_3
-    SAVE_TO_MASTER_3 : next_state = SAVE_TO_MASTER_4
-    SAVE_TO_MASTER_4 : next_state = SAVE_TO_MASTER_5
-    SAVE_TO_MASTER_5 : next_state = SAVE_TO_MASTER_6
-    SAVE_TO_MASTER_6 : next_state = SAVE_TO_MASTER_7
-    SAVE_TO_MASTER_7 : next_state = IDLE
+    DATA_DM : next_state = SAVE_TO_MASTER_0;
+    SAVE_TO_MASTER_0 : next_state = SAVE_TO_MASTER_1;
+    SAVE_TO_MASTER_1 : next_state = SAVE_TO_MASTER_2;
+    SAVE_TO_MASTER_2 : next_state = SAVE_TO_MASTER_3;
+    SAVE_TO_MASTER_3 : next_state = SAVE_TO_MASTER_4;
+    SAVE_TO_MASTER_4 : next_state = SAVE_TO_MASTER_5;
+    SAVE_TO_MASTER_5 : next_state = SAVE_TO_MASTER_6;
+    SAVE_TO_MASTER_6 : next_state = SAVE_TO_MASTER_7;
+    SAVE_TO_MASTER_7 : next_state = IDLE;
   endcase
 end
 
