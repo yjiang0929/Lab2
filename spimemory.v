@@ -5,12 +5,14 @@
 module spiMemory
 (
     input        clk,
-    input  MOSI, SCLK, // sw0 = MOSI; sw1 = SCLK;
+    input     SCLK, // sw0 = MOSI; sw1 = SCLK;
     input  CS,     // btn = ;
     output miso_pin,
     input mosi_pin,
     output [7:0] sRegOutP
 )
+
+
     wire condCS, condMOSI, condSCLK, posCS, posMOSI, pcoss1, negCS, negMOSI, negSCLK;
     wire serialout;
     wire MISO_BUFF, DM_WE, ADDR_WE, SR_WE;
