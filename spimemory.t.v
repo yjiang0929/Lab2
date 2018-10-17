@@ -28,6 +28,9 @@ initial begin
 // Synchronization, Debouncing, Edge Detection
 $dumpfile("finalrunner.vcd");
 $dumpvars();
+  mosi_pin = 0; sclk = 0; csc = 0; #100
+  
+
 
 $finish();
 end
