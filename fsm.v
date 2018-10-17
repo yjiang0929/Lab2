@@ -57,7 +57,7 @@ begin
     GETTING_ADDR_4 : next_state = GETTING_ADDR_5;
     GETTING_ADDR_5 : next_state = GETTING_ADDR_6;
     GETTING_ADDR_6 : next_state = GOT_ADDR;
-    GOT_ADDR : if (sout=1) begin
+    GOT_ADDR : if (sout==1) begin
                   next_state = DATA_MASTER_0;
                 end else begin
                   next_state = DATA_DM;
@@ -98,7 +98,7 @@ end
 // map state to output
 always @ (posedge sclk)
 begin
-  if (cs=1) begin
+  if (cs==1) begin
     miso_buff <= 0;
     dm_we <= 0;
     addr_we <= 0;
@@ -141,7 +141,7 @@ begin
         miso_buff <= 1;
         dm_we <= 0;
         addr_we <= 0;
-        sr<we <= 0;
+        sr_we <= 0;
       end
     endcase
   end
