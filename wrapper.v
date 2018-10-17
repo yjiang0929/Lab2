@@ -40,7 +40,7 @@ module lab2_wrapper
     inputconditioner sw0cond(clk, sw[0], conds0, poss0, negs0);
     inputconditioner sw1cond(clk, sw[1], conds1, poss1, negs1);
 
-    shiftregister register(clk, poss1, negb0, 8'h00, conds0, test, serialout);
+    shiftregister register(clk, poss1, negb0, 8'h00, conds0, led, serialout);
 
     // led[3:0] <= {test[3:0]};
 
