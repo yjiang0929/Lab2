@@ -20,6 +20,8 @@ module spiMemory
     input           mosi_pin,   // SPI master out slave in
     output [3:0]    leds        // LEDs for debugging
 )
+
+
     wire condCS, condMOSI, condSCLK, posCS, posMOSI, pcoss1, negCS, negMOSI, negSCLK;
     wire serialout;
     wire MISO_BUFF, DM_WE, ADDR_WE, SR_WE;
