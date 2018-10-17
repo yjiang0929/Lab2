@@ -11,17 +11,12 @@ module spiMemory
     input mosi_pin,
     output [7:0] sRegOutP
 )
-
-
     wire condCS, condMOSI, condSCLK, posCS, posMOSI, pcoss1, negCS, negMOSI, negSCLK;
     wire serialout;
     wire MISO_BUFF, DM_WE, ADDR_WE, SR_WE;
     wire[7:0] dataOut, addrOut;
     wire[6:0] address;
     wire Q;
-    wire [7:0] parallelIn
-
-
 
     // Memory for stored operands (parametric width set to 4 bits)
     inputconditioner butt0cond(clk, CS, condCS, posCS, negCS);
