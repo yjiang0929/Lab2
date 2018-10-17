@@ -1,5 +1,5 @@
 
-module final
+module spiMemory
 (
     input        clk,
     input  MOSI, SCLK, // sw0 = MOSI; sw1 = SCLK;
