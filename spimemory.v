@@ -1,11 +1,17 @@
 //------------------------------------------------------------------------
 // SPI Memory
 //------------------------------------------------------------------------
+`include "addrlatch.v"
+`include "datamemory.v"
+`include "dff.v"
+`include "inputconditioner.v"
+`include "shiftregister.v"
+`include "fsm.v"
 
-module spiMemory
+module spiMemo
 (
     input        clk,
-    input  MOSI, SCLK, // sw0 = MOSI; sw1 = SCLK;
+    input  SCLK, // sw0 = MOSI; sw1 = SCLK;
     input  CS,     // btn = ;
     output miso_pin,
     input mosi_pin,
@@ -37,6 +43,17 @@ module spiMemory
 
     assign miso_pin = MISO_BUFF? serialout : 'bz; //Buffer
 
+endmodule
+
+module spiMemory
+(
+    input           clk,        // FPGA clock
+    input           sclk_pin,   // SPI clock
+    input           cs_pin,     // SPI chip select
+    output          miso_pin,   // SPI master in slave out
+    input           mosi_pin,   // SPI master out slave in
+    output [3:0]    leds        // LEDs for debugging
+)
 
 
 endmodule
