@@ -49,6 +49,13 @@ begin
   if (state === 5'dx) begin
     state <= IDLE;
   end
+  if (cs==1) begin
+    state <= IDLE;
+    miso_buff <= 0;
+    dm_we <= 0;
+    addr_we <= 0;
+    sr_we <= 0;
+  end
     case(state)
       IDLE : begin
         if (cs==1) begin
