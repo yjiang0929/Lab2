@@ -68,53 +68,46 @@ begin
       GETTING_ADDR_0 : begin
         miso_buff <= 0;
         dm_we <= 0;
-        addr_we <= 0;
+        addr_we <= 1;
         sr_we <= 0;
         state <= GETTING_ADDR_1;
       end
       GETTING_ADDR_1 : begin
         miso_buff <= 0;
         dm_we <= 0;
-        addr_we <= 0;
+        addr_we <= 1;
         sr_we <= 0;
         state <= GETTING_ADDR_2;
       end
       GETTING_ADDR_2 : begin
         miso_buff <= 0;
         dm_we <= 0;
-        addr_we <= 0;
+        addr_we <= 1;
         sr_we <= 0;
         state <= GETTING_ADDR_3;
       end
       GETTING_ADDR_3 : begin
         miso_buff <= 0;
         dm_we <= 0;
-        addr_we <= 0;
+        addr_we <= 1;
         sr_we <= 0;
         state <= GETTING_ADDR_4;
       end
       GETTING_ADDR_4 : begin
         miso_buff <= 0;
         dm_we <= 0;
-        addr_we <= 0;
+        addr_we <= 1;
         sr_we <= 0;
         state <= GETTING_ADDR_5;
       end
       GETTING_ADDR_5 : begin
         miso_buff <= 0;
         dm_we <= 0;
-        addr_we <= 0;
+        addr_we <= 1;
         sr_we <= 0;
         state <= GETTING_ADDR_6;
       end
       GETTING_ADDR_6 : begin
-        miso_buff <= 0;
-        dm_we <= 0;
-        addr_we <= 0;
-        sr_we <= 0;
-        state <= GOT_ADDR;
-      end
-      GOT_ADDR: begin
         miso_buff <= 0;
         dm_we <= 0;
         addr_we <= 1;
