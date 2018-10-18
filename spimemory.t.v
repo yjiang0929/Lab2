@@ -11,7 +11,7 @@ wire cs;
 wire [3:0] sRegOutP;
 
 reg		begintest;	// Set High to begin testing register file
-wire  	endtest;    	// Set High to signal test completion 
+wire  	endtest;    	// Set High to signal test completion
 wire		dutpassed;	// Indicates whether register file passed tests
 
 spiMemory dut(.clk(clk),
@@ -42,9 +42,9 @@ initial begin
   $dumpfile("finalrunner.vcd");
   $dumpvars();
   begintest=0;
-  #10;
+  #100;
   begintest=1;
-  #1000;
+  #50000;
   $finish();
 end
 
@@ -65,7 +65,7 @@ output reg 		endtest,	// Raise once test completes
 output reg 		dutpassed,	// Signal test result
 
 // spi memory DUT connections
-input reg clk,
+input wire clk,
 output wire miso_pin,
 output reg mosi_pin,
 output reg sclk,
@@ -80,9 +80,163 @@ output wire [3:0] sRegOutP
   always @(posedge begintest) begin
     endtest = 0;
     dutpassed = 1;
-    #10
+    #100
 
     // TODO: test cases go here
+    cs = 0;
+    // select first register 0000101
+    mosi_pin = 0;#100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    mosi_pin = 1;#100
+    sclk = 1; #100
+    sclk = 0; #100
+    mosi_pin = 0;#100
+    sclk = 1; #100
+    sclk = 0; #100
+    mosi_pin = 1;#100
+    sclk = 1; #100
+    sclk = 0; #100
+    mosi_pin = 0;#100
+    sclk = 1; #100
+    sclk = 0; #100
+
+    //set first register's value to 11110000
+    mosi_pin = 1;#100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    mosi_pin = 0;#100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+
+    cs = 1;
+    // select second register 1010000
+    mosi_pin = 1;#100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    mosi_pin = 0;#100
+    sclk = 1; #100
+    sclk = 0; #100
+    mosi_pin = 1;#100
+    sclk = 1; #100
+    sclk = 0; #100
+    mosi_pin = 0;#100
+    sclk = 1; #100
+    sclk = 0; #100
+
+    sclk = 1; #100
+    sclk = 0; #100
+
+    sclk = 1; #100
+    sclk = 0; #100
+
+    sclk = 1; #100
+    sclk = 0; #100
+    // mosi_pin = 1;#100
+    sclk = 1; #100
+    sclk = 0; #100
+
+
+    //set second register's value to 10101010
+    mosi_pin = 1;#100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    mosi_pin = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+
+    mosi_pin = 1;#100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    mosi_pin = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+
+    mosi_pin = 1;#100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    mosi_pin = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+
+    mosi_pin = 1;#100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    mosi_pin = 1; #100
+    sclk = 1; #100
+    sclk = 0; #100
+
+    // select first register 0000101
+    mosi_pin = 0;#100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    mosi_pin = 1;#100
+    sclk = 1; #100
+    sclk = 0; #100
+    mosi_pin = 0;#100
+    sclk = 1; #100
+    sclk = 0; #100
+    mosi_pin = 1;#100
+    sclk = 1; #100
+    sclk = 0; #100
+    mosi_pin = 1;#100
+    sclk = 1; #100
+    sclk = 0; #100
+
+    // Cycle clock to read.
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+    sclk = 1; #100
+    sclk = 0; #100
+
+
 
     // All done!  Wait a moment and signal test completion.
     #5
