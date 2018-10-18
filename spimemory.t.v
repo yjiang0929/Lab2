@@ -91,6 +91,7 @@ output wire [3:0] sRegOutP
     cs = 0;
 
     // select first register 0000101
+    //0000100 works but not 0000101
     mosi_pin = 0;
     sclk = 0; #500
     sclk = 1; #500
@@ -106,14 +107,14 @@ output wire [3:0] sRegOutP
     mosi_pin = 0;
     sclk = 0; #500
     sclk = 1; #500
-    mosi_pin = 1;
+    mosi_pin = 0;
     sclk = 0; #500
     sclk = 1; #500
     mosi_pin = 0; //write
     sclk = 0; #500
     sclk = 1; #500
 
-    //set first register's value to 11150000    
+    //set first register's value to 11110000
     mosi_pin = 1;
     sclk = 0; #500
     sclk = 1; #500
@@ -123,8 +124,9 @@ output wire [3:0] sRegOutP
     sclk = 1; #500
     sclk = 0; #500
     sclk = 1; #500
+    mosi_pin = 0;
     sclk = 0; #500
-    mosi_pin = 0;#500
+    sclk = 1; #500
     sclk = 0; #500
     sclk = 1; #500
     sclk = 0; #500
@@ -135,7 +137,54 @@ output wire [3:0] sRegOutP
     sclk = 1; #500
     sclk = 0; #500
 
-    cs = 0;
+    cs = 1; #5000
+
+    cs=0;
+    // select first register 0000101
+    //0000100 works but not 0000101
+    mosi_pin = 0;
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 1;
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 0;
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 0;
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 1; //read
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 0;
+
+    // read from 0000100
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+
     // select second register 1050000
     mosi_pin = 1;#500
     sclk = 0; #500

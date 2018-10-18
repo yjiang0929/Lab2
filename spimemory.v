@@ -36,15 +36,15 @@ module spiMemory
     inputconditioner MOSIcond(clk, mosi_pin, condMOSI, posMOSI, negMOSI);
     inputconditioner SCLKcond(clk, sclk_pin, condSCLK, posSCLK, negSCLK);
 
-    fsm fsm0(posSCLK, condCS, sRegOutP[0], MISO_BUFF, DM_WE, ADDR_WE, SR_WE);
+    shiftregister register(clk, posSCLK, SR_WE, dataOut, condMOSI, sRegOutP, serialout);
+
+    fsm fsm0(posSCLK, condCS, condMOSI, MISO_BUFF, DM_WE, ADDR_WE, SR_WE);
 
     datamemory dm0(clk, dataOut, address, DM_WE, sRegOutP);
 
     addrlatch addrlatch0(sRegOutP, ADDR_WE, clk, address[6:0]);
 
     // address <= addrOut[6:0];
-
-    shiftregister register(clk, posSCLK, SR_WE, dataOut, condMOSI, sRegOutP, serialout);
 
     dff dff0(serialout, negSCLK, clk, Q);
 
