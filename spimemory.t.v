@@ -112,9 +112,10 @@ output wire [3:0] sRegOutP
     sclk = 1; #500
     sclk = 0; #500
     sclk = 1; #500
+    mosi_pin = 1;
     sclk = 0; #500
     sclk = 1; #500
-    mosi_pin = 1;
+    // mosi_pin = 1;
     sclk = 0; #500
     sclk = 1; #500
     mosi_pin = 0;
@@ -176,9 +177,10 @@ output wire [3:0] sRegOutP
     sclk = 1; #500
     sclk = 0; #500
     sclk = 1; #500
+    mosi_pin = 1;
     sclk = 0; #500
     sclk = 1; #500
-    mosi_pin = 1;
+    // mosi_pin = 1;
     sclk = 0; #500
     sclk = 1; #500
     mosi_pin = 0;
@@ -246,6 +248,9 @@ output wire [3:0] sRegOutP
 			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[reg1][0]);
       dutpassed = 0;
     end
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
 
     cs = 1; #5000
 
