@@ -79,8 +79,9 @@ output wire [3:0] sRegOutP
   // Once 'begintest' is asserted, start running test cases
   always @(posedge begintest) begin
     endtest = 0;
+    sclk = 0;
     dutpassed = 1;
-    #100
+    #1000
 
     // TODO: test cases go here
     cs = 0;
@@ -104,7 +105,7 @@ output wire [3:0] sRegOutP
     mosi_pin = 1;#100
     sclk = 1; #100
     sclk = 0; #100
-    mosi_pin = 1;#100 //write
+    mosi_pin = 0;#100 //write
     sclk = 1; #100
     sclk = 0; #100
 
@@ -154,7 +155,7 @@ output wire [3:0] sRegOutP
 
     sclk = 1; #100
     sclk = 0; #100
-    mosi_pin = 1;#100 //Write
+    mosi_pin = 0;#100 //Write
     sclk = 1; #100
     sclk = 0; #100
 
@@ -212,7 +213,7 @@ output wire [3:0] sRegOutP
     mosi_pin = 1;#100
     sclk = 1; #100
     sclk = 0; #100
-    mosi_pin = 0;#100 //read
+    mosi_pin = 1;#100 //read
     sclk = 1; #100
     sclk = 0; #100
 
