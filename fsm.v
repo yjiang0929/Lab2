@@ -58,9 +58,9 @@ begin
     GETTING_ADDR_5 : next_state = GETTING_ADDR_6;
     GETTING_ADDR_6 : next_state = GOT_ADDR;
     GOT_ADDR : if (sout==1) begin
-                  next_state = DATA_MASTER_0;
-                end else begin
                   next_state = DATA_DM;
+                end else begin
+                  next_state = DATA_MASTER_0;
                 end
 
     DATA_MASTER_0 : next_state = DATA_MASTER_1;
