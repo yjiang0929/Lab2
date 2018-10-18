@@ -49,21 +49,16 @@ begin
   if (state === 5'dx) begin
     state <= IDLE;
   end
-  else if (cs==1) begin
-    state <= IDLE;
-    miso_buff <= 0;
-    dm_we <= 0;
-    addr_we <= 0;
-    sr_we <= 0;
-  end
-  else begin
     case(state)
       IDLE : begin
         miso_buff <= 0;
         dm_we <= 0;
         addr_we <= 0;
         sr_we <= 0;
-        state <= GETTING_ADDR_0;
+        if (cs==1)
+          state <= IDLE;
+        else
+          state <= GETTING_ADDR_0;
       end
       GETTING_ADDR_0 : begin
         miso_buff <= 0;
@@ -245,7 +240,6 @@ begin
         state <= IDLE;
       end
     endcase
-  end
 end
 
 endmodule
