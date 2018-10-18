@@ -104,7 +104,7 @@ output wire [3:0] sRegOutP
     mosi_pin = 1;#100
     sclk = 1; #100
     sclk = 0; #100
-    mosi_pin = 0;#100
+    mosi_pin = 1;#100 //write
     sclk = 1; #100
     sclk = 0; #100
 
@@ -130,7 +130,7 @@ output wire [3:0] sRegOutP
     sclk = 1; #100
     sclk = 0; #100
 
-    cs = 1;
+    cs = 0;
     // select second register 1010000
     mosi_pin = 1;#100
     sclk = 0; #100
@@ -154,7 +154,7 @@ output wire [3:0] sRegOutP
 
     sclk = 1; #100
     sclk = 0; #100
-    // mosi_pin = 1;#100
+    mosi_pin = 1;#100 //Write
     sclk = 1; #100
     sclk = 0; #100
 
@@ -212,7 +212,7 @@ output wire [3:0] sRegOutP
     mosi_pin = 1;#100
     sclk = 1; #100
     sclk = 0; #100
-    mosi_pin = 1;#100
+    mosi_pin = 0;#100 //read
     sclk = 1; #100
     sclk = 0; #100
 
