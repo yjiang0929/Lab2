@@ -46,7 +46,10 @@ reg[4:0] state;
 // map state to output
 always @ (posedge sclk)
 begin
-  if (cs==1) begin
+  if (state === 5'dx) begin
+    state <= IDLE;
+  end
+  else if (cs==1) begin
     state <= IDLE;
     miso_buff <= 0;
     dm_we <= 0;
