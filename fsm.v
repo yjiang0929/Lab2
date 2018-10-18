@@ -42,63 +42,12 @@ parameter SAVE_TO_MASTER_7 = 5'd28;
 
 // state variables
 reg[4:0] state;
-reg[4:0] next_state;
-
-// assign next state
-always @ (posedge sclk)
-begin
-  next_state = 5'd0;
-  case (state)
-    IDLE : next_state = GETTING_ADDR_0;
-    GETTING_ADDR_0 : next_state = GETTING_ADDR_1;
-    GETTING_ADDR_1 : next_state = GETTING_ADDR_2;
-    GETTING_ADDR_2 : next_state = GETTING_ADDR_3;
-    GETTING_ADDR_3 : next_state = GETTING_ADDR_4;
-    GETTING_ADDR_4 : next_state = GETTING_ADDR_5;
-    GETTING_ADDR_5 : next_state = GETTING_ADDR_6;
-    GETTING_ADDR_6 : next_state = GOT_ADDR;
-    GOT_ADDR : if (sout==1) begin
-                  next_state = DATA_DM;
-                end else begin
-                  next_state = DATA_MASTER_0;
-                end
-
-    DATA_MASTER_0 : next_state = DATA_MASTER_1;
-    DATA_MASTER_1 : next_state = DATA_MASTER_2;
-    DATA_MASTER_2 : next_state = DATA_MASTER_3;
-    DATA_MASTER_3 : next_state = DATA_MASTER_4;
-    DATA_MASTER_4 : next_state = DATA_MASTER_5;
-    DATA_MASTER_5 : next_state = DATA_MASTER_6;
-    DATA_MASTER_6 : next_state = DATA_MASTER_7;
-    DATA_MASTER_7 : next_state = SAVE_TO_DM;
-    SAVE_TO_DM : next_state = IDLE;
-
-    DATA_DM : next_state = SAVE_TO_MASTER_0;
-    SAVE_TO_MASTER_0 : next_state = SAVE_TO_MASTER_1;
-    SAVE_TO_MASTER_1 : next_state = SAVE_TO_MASTER_2;
-    SAVE_TO_MASTER_2 : next_state = SAVE_TO_MASTER_3;
-    SAVE_TO_MASTER_3 : next_state = SAVE_TO_MASTER_4;
-    SAVE_TO_MASTER_4 : next_state = SAVE_TO_MASTER_5;
-    SAVE_TO_MASTER_5 : next_state = SAVE_TO_MASTER_6;
-    SAVE_TO_MASTER_6 : next_state = SAVE_TO_MASTER_7;
-    SAVE_TO_MASTER_7 : next_state = IDLE;
-  endcase
-end
-
-// clk logic
-always @ (posedge sclk)
-begin
-  if (cs==1) begin
-    state <= IDLE;
-  end else begin
-    state <= next_state;
-  end
-end
 
 // map state to output
 always @ (posedge sclk)
 begin
   if (cs==1) begin
+    state <= IDLE;
     miso_buff <= 0;
     dm_we <= 0;
     addr_we <= 0;
@@ -106,42 +55,198 @@ begin
   end
   else begin
     case(state)
-      IDLE, GETTING_ADDR_0,
-      GETTING_ADDR_1, GETTING_ADDR_2, GETTING_ADDR_3,
-      GETTING_ADDR_4, GETTING_ADDR_5, GETTING_ADDR_6,
-      DATA_MASTER_0, DATA_MASTER_1, DATA_MASTER_2,
-      DATA_MASTER_3, DATA_MASTER_4, DATA_MASTER_5,
-      DATA_MASTER_6, DATA_MASTER_7 :begin
+      IDLE : begin
         miso_buff <= 0;
         dm_we <= 0;
         addr_we <= 0;
         sr_we <= 0;
+        state <= GETTING_ADDR_0;
+      end
+      GETTING_ADDR_0 : begin
+        miso_buff <= 0;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= GETTING_ADDR_1;
+      end
+      GETTING_ADDR_1 : begin
+        miso_buff <= 0;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= GETTING_ADDR_2;
+      end
+      GETTING_ADDR_2 : begin
+        miso_buff <= 0;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= GETTING_ADDR_3;
+      end
+      GETTING_ADDR_3 : begin
+        miso_buff <= 0;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= GETTING_ADDR_4;
+      end
+      GETTING_ADDR_4 : begin
+        miso_buff <= 0;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= GETTING_ADDR_5;
+      end
+      GETTING_ADDR_5 : begin
+        miso_buff <= 0;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= GETTING_ADDR_6;
+      end
+      GETTING_ADDR_6 : begin
+        miso_buff <= 0;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= GOT_ADDR;
       end
       GOT_ADDR: begin
         miso_buff <= 0;
         dm_we <= 0;
         addr_we <= 1;
         sr_we <= 0;
+        if (sout==1) begin
+          state <= DATA_DM;
+        end else begin
+          state <= DATA_MASTER_0;
+        end
+      end
+      DATA_MASTER_0 : begin
+        miso_buff <= 0;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= DATA_MASTER_1;
+      end
+      DATA_MASTER_1 : begin
+        miso_buff <= 0;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= DATA_MASTER_2;
+      end
+      DATA_MASTER_2 : begin
+        miso_buff <= 0;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= DATA_MASTER_3;
+      end
+      DATA_MASTER_3 : begin
+        miso_buff <= 0;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= DATA_MASTER_4;
+      end
+      DATA_MASTER_4 : begin
+        miso_buff <= 0;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= DATA_MASTER_5;
+      end
+      DATA_MASTER_5 : begin
+        miso_buff <= 0;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= DATA_MASTER_6;
+      end
+      DATA_MASTER_6 : begin
+        miso_buff <= 0;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= DATA_MASTER_7;
+      end
+      DATA_MASTER_7 : begin
+        miso_buff <= 0;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= SAVE_TO_DM;
       end
       SAVE_TO_DM: begin
         miso_buff <= 0;
         dm_we <= 1;
         addr_we <= 0;
         sr_we <= 0;
+        state <= IDLE;
       end
       DATA_DM: begin
         miso_buff <= 0;
         dm_we <= 0;
         addr_we <= 0;
         sr_we <= 1;
+        state <= SAVE_TO_MASTER_0;
       end
-      SAVE_TO_MASTER_0, SAVE_TO_MASTER_1, SAVE_TO_MASTER_2,
-      SAVE_TO_MASTER_3, SAVE_TO_MASTER_4, SAVE_TO_MASTER_5,
-      SAVE_TO_MASTER_6, SAVE_TO_MASTER_7: begin
+      SAVE_TO_MASTER_0 : begin
         miso_buff <= 1;
         dm_we <= 0;
         addr_we <= 0;
         sr_we <= 0;
+        state <= SAVE_TO_MASTER_1;
+      end
+      SAVE_TO_MASTER_1 : begin
+        miso_buff <= 1;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= SAVE_TO_MASTER_2;
+      end
+      SAVE_TO_MASTER_2 : begin
+        miso_buff <= 1;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= SAVE_TO_MASTER_3;
+      end
+      SAVE_TO_MASTER_3 : begin
+        miso_buff <= 1;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= SAVE_TO_MASTER_4;
+      end
+      SAVE_TO_MASTER_4 : begin
+        miso_buff <= 1;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= SAVE_TO_MASTER_5;
+      end
+      SAVE_TO_MASTER_5 : begin
+        miso_buff <= 1;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= SAVE_TO_MASTER_6;
+      end
+      SAVE_TO_MASTER_6 : begin
+        miso_buff <= 1;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= SAVE_TO_MASTER_7;
+      end
+      SAVE_TO_MASTER_7 : begin
+        miso_buff <= 1;
+        dm_we <= 0;
+        addr_we <= 0;
+        sr_we <= 0;
+        state <= IDLE;
       end
     endcase
   end
