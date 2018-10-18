@@ -37,12 +37,12 @@ testbench tester(
 initial clk=0;
 always #10 clk=!clk;    // 50MHz Clock
 
-// Test harness asserts 'begintest' for 1000 time steps, starting at time 10
+// Test harness asserts 'begintest' for 5000 time steps, starting at time 10
 initial begin
-  $dumpfile("finalrunner.vcd");
+  $dumpfile("spimemory.vcd");
   $dumpvars();
   begintest=0;
-  #100;
+  // #500;
   begintest=1;
   #50000;
   $finish();
@@ -81,161 +81,165 @@ output wire [3:0] sRegOutP
     endtest = 0;
     sclk = 0;
     dutpassed = 1;
-    #1000
 
     // TODO: test cases go here
+    cs = 1;
+    // sclk pulse to signify start
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0;
     cs = 0;
+
     // select first register 0000101
-    mosi_pin = 0;#100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 1;#100
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 0;#100
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 1;#100
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 0;#100 //write
-    sclk = 1; #100
-    sclk = 0; #100
+    mosi_pin = 0;
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 1;
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 0;
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 1;
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 0; //write
+    sclk = 0; #500
+    sclk = 1; #500
 
-    //set first register's value to 11110000
-    mosi_pin = 1;#100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 0;#100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
+    //set first register's value to 11150000    
+    mosi_pin = 1;
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    mosi_pin = 0;#500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
 
     cs = 0;
-    // select second register 1010000
-    mosi_pin = 1;#100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 0;#100
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 1;#100
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 0;#100
-    sclk = 1; #100
-    sclk = 0; #100
+    // select second register 1050000
+    mosi_pin = 1;#500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    mosi_pin = 0;#500
+    sclk = 1; #500
+    sclk = 0; #500
+    mosi_pin = 1;#500
+    sclk = 1; #500
+    sclk = 0; #500
+    mosi_pin = 0;#500
+    sclk = 1; #500
+    sclk = 0; #500
 
-    sclk = 1; #100
-    sclk = 0; #100
+    sclk = 1; #500
+    sclk = 0; #500
 
-    sclk = 1; #100
-    sclk = 0; #100
+    sclk = 1; #500
+    sclk = 0; #500
 
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 0;#100 //Write
-    sclk = 1; #100
-    sclk = 0; #100
+    sclk = 1; #500
+    sclk = 0; #500
+    mosi_pin = 0;#500 //Write
+    sclk = 1; #500
+    sclk = 0; #500
 
 
     //set second register's value to 10101010
-    mosi_pin = 1;#100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
+    mosi_pin = 1;#500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    mosi_pin = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
 
-    mosi_pin = 1;#100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
+    mosi_pin = 1;#500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    mosi_pin = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
 
-    mosi_pin = 1;#100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
+    mosi_pin = 1;#500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    mosi_pin = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
 
-    mosi_pin = 1;#100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 1; #100
-    sclk = 1; #100
-    sclk = 0; #100
+    mosi_pin = 1;#500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    mosi_pin = 1; #500
+    sclk = 1; #500
+    sclk = 0; #500
 
     // select first register 0000101
-    mosi_pin = 0;#100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 1;#100
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 0;#100
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 1;#100
-    sclk = 1; #100
-    sclk = 0; #100
-    mosi_pin = 1;#100 //read
-    sclk = 1; #100
-    sclk = 0; #100
+    mosi_pin = 0;#500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    mosi_pin = 1;#500
+    sclk = 1; #500
+    sclk = 0; #500
+    mosi_pin = 0;#500
+    sclk = 1; #500
+    sclk = 0; #500
+    mosi_pin = 1;#500
+    sclk = 1; #500
+    sclk = 0; #500
+    mosi_pin = 1;#500 //read
+    sclk = 1; #500
+    sclk = 0; #500
 
     // Cycle clock to read.
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
-    sclk = 1; #100
-    sclk = 0; #100
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
 
 
 
