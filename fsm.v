@@ -45,7 +45,7 @@ reg state;
 reg next_state;
 
 // assign next state
-always @ (sout)
+always @ (posedge sclk)
 begin
   next_state = 0;
   case (state)
