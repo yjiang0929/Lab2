@@ -12,42 +12,42 @@ output reg addr_we,
 output reg sr_we
 );
 // state constants
-parameter IDLE = 0;
-parameter GETTING_ADDR_0 = 1;
-parameter GETTING_ADDR_1 = 2;
-parameter GETTING_ADDR_2 = 3;
-parameter GETTING_ADDR_3 = 4;
-parameter GETTING_ADDR_4 = 5;
-parameter GETTING_ADDR_5 = 6;
-parameter GETTING_ADDR_6 = 7;
-parameter GOT_ADDR = 8;
-parameter DATA_MASTER_0 = 10;
-parameter DATA_MASTER_1 = 11;
-parameter DATA_MASTER_2 = 12;
-parameter DATA_MASTER_3 = 13;
-parameter DATA_MASTER_4 = 14;
-parameter DATA_MASTER_5 = 15;
-parameter DATA_MASTER_6 = 16;
-parameter DATA_MASTER_7 = 17;
-parameter SAVE_TO_DM = 18;
-parameter DATA_DM = 20;
-parameter SAVE_TO_MASTER_0 = 21;
-parameter SAVE_TO_MASTER_1 = 22;
-parameter SAVE_TO_MASTER_2 = 23;
-parameter SAVE_TO_MASTER_3 = 24;
-parameter SAVE_TO_MASTER_4 = 25;
-parameter SAVE_TO_MASTER_5 = 26;
-parameter SAVE_TO_MASTER_6 = 27;
-parameter SAVE_TO_MASTER_7 = 28;
+parameter IDLE = 5'd0;
+parameter GETTING_ADDR_0 = 5'd1;
+parameter GETTING_ADDR_1 = 5'd2;
+parameter GETTING_ADDR_2 = 5'd3;
+parameter GETTING_ADDR_3 = 5'd4;
+parameter GETTING_ADDR_4 = 5'd5;
+parameter GETTING_ADDR_5 = 5'd6;
+parameter GETTING_ADDR_6 = 5'd7;
+parameter GOT_ADDR = 5'd8;
+parameter DATA_MASTER_0 = 5'd10;
+parameter DATA_MASTER_1 = 5'd11;
+parameter DATA_MASTER_2 = 5'd12;
+parameter DATA_MASTER_3 = 5'd13;
+parameter DATA_MASTER_4 = 5'd14;
+parameter DATA_MASTER_5 = 5'd15;
+parameter DATA_MASTER_6 = 5'd16;
+parameter DATA_MASTER_7 = 5'd17;
+parameter SAVE_TO_DM = 5'd18;
+parameter DATA_DM = 5'd20;
+parameter SAVE_TO_MASTER_0 = 5'd21;
+parameter SAVE_TO_MASTER_1 = 5'd22;
+parameter SAVE_TO_MASTER_2 = 5'd23;
+parameter SAVE_TO_MASTER_3 = 5'd24;
+parameter SAVE_TO_MASTER_4 = 5'd25;
+parameter SAVE_TO_MASTER_5 = 5'd26;
+parameter SAVE_TO_MASTER_6 = 5'd27;
+parameter SAVE_TO_MASTER_7 = 5'd28;
 
 // state variables
-reg state;
-reg next_state;
+reg[4:0] state;
+reg[4:0] next_state;
 
 // assign next state
 always @ (posedge sclk)
 begin
-  next_state = 0;
+  next_state = 5'd0;
   case (state)
     IDLE : next_state = GETTING_ADDR_0;
     GETTING_ADDR_0 : next_state = GETTING_ADDR_1;
