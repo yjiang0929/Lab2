@@ -44,7 +44,7 @@ initial begin
   begintest=0;
   // #500;
   begintest=1;
-  #50000;
+  #500000;
   $finish();
 end
 
@@ -87,14 +87,25 @@ output wire [3:0] sRegOutP
     // sclk pulse to signify start
     sclk = 0; #500
     sclk = 1; #500
+    if(dut.fsm0.state != 5'b00000) begin
+			$displayb("Test failed: there should be no state at this time, but the state is actually %b.", dut.fsm0.state);
+      dutpassed = 0;
+		end
     sclk = 0;
+
+
+
     cs = 0;
 
-    // select first register 0000101
-    //0000100 works but not 0000101
+
+    // select first register 0000100
     mosi_pin = 0;
     sclk = 0; #500
     sclk = 1; #500
+    if(dut.fsm0.state != 5'b00001) begin
+			$displayb("Test failed: we should be in the getting address state, but the state is actually %b.", dut.fsm0.state);
+      dutpassed = 0;
+		end
     sclk = 0; #500
     sclk = 1; #500
     sclk = 0; #500
@@ -107,15 +118,22 @@ output wire [3:0] sRegOutP
     mosi_pin = 0;
     sclk = 0; #500
     sclk = 1; #500
-    mosi_pin = 0;
     sclk = 0; #500
     sclk = 1; #500
     mosi_pin = 0; //write
     sclk = 0; #500
     sclk = 1; #500
+    if(dut.dm0.address != 7'b0000100) begin
+      $displayb("Test failed: dut address is %b but should be 0000100", dut.dm0.address);
+      dutpassed = 0;
+    end
 
     //set first register's value to 11110000
     mosi_pin = 1;
+    if(dut.fsm0.state != 5'b01010) begin
+			$displayb("Test failed: we should be in the address obtained state, but the state is actually %b.", dut.fsm0.state);
+      dutpassed = 0;
+		end
     sclk = 0; #500
     sclk = 1; #500
     sclk = 0; #500
@@ -136,12 +154,19 @@ output wire [3:0] sRegOutP
     sclk = 0; #500
     sclk = 1; #500
     sclk = 0; #500
+    if(dut.dm0.memory[7'b0000100] != 8'b11110000) begin
+			$displayb("Test failed: register %b should be value 11110000 but is actually %b.", 7'b0000100, dut.dm0.memory[7'b0000100]);
+      dutpassed = 0;
+		end
 
+    //Pause between tests.
     cs = 1; #5000
-
+    if(dut.fsm0.state != 5'b00000) begin
+      $displayb("Test failed: we should be idle, but the state is actually %b.", dut.fsm0.state);
+      dutpassed = 0;
+    end
     cs=0;
-    // select first register 0000101
-    //0000100 works but not 0000101
+    // select first register 0000100
     mosi_pin = 0;
     sclk = 0; #500
     sclk = 1; #500
@@ -166,6 +191,66 @@ output wire [3:0] sRegOutP
     mosi_pin = 0;
 
     // read from 0000100
+
+    sclk = 0; #500
+    sclk = 1; #500
+    if (miso_pin != 1) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][7]);
+      dutpassed = 0;
+    end
+    sclk = 0; #500
+    sclk = 1; #500
+    if(dut.fsm0.state != 5'b10110) begin
+			$displayb("Test failed: we should be in the sendinig data to master state, but the state is actually %b.", dut.fsm0.state);
+      dutpassed = 0;
+		end
+    if (miso_pin != 1) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][6]);
+      dutpassed = 0;
+    end
+    sclk = 0; #500
+    sclk = 1; #500
+    if (miso_pin != 1) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][5]);
+      dutpassed = 0;
+    end
+    sclk = 0; #500
+    sclk = 1; #500
+    if (miso_pin != 1) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][4]);
+      dutpassed = 0;
+    end
+    sclk = 0; #500
+    sclk = 1; #500
+    if (miso_pin != 0) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][3]);
+      dutpassed = 0;
+    end
+    sclk = 0; #500
+    sclk = 1; #500
+    if (miso_pin != 0) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][2]);
+      dutpassed = 0;
+    end
+    sclk = 0; #500
+    sclk = 1; #500
+    if (miso_pin != 0) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][1]);
+      dutpassed = 0;
+    end
+    sclk = 0; #500
+    sclk = 1; #500
+    if (miso_pin != 0) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][0]);
+      dutpassed = 0;
+    end
+
+    cs = 1; #5000
+
+    cs = 0;
+
+    // select first register 0000100
+    mosi_pin = 0;
     sclk = 0; #500
     sclk = 1; #500
     sclk = 0; #500
@@ -174,6 +259,22 @@ output wire [3:0] sRegOutP
     sclk = 1; #500
     sclk = 0; #500
     sclk = 1; #500
+    mosi_pin = 1;
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 0;
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 0;
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 0; //write
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 0;
+
+    // Start writing 00000000
+    mosi_pin = 0;
     sclk = 0; #500
     sclk = 1; #500
     sclk = 0; #500
@@ -182,6 +283,112 @@ output wire [3:0] sRegOutP
     sclk = 1; #500
     sclk = 0; #500
     sclk = 1; #500
+    //get interrupted
+    cs = 1;
+    if(dut.dm0.memory[7'b0000100] != 8'b11110000) begin
+			$displayb("Test failed after stopping reading: register %b should be value 11110000 but is actually %b.", 7'b0000100, dut.dm0.memory[7'b0000100]);
+      dutpassed = 0;
+		end
+
+    cs = 0; #5000
+    // select first register 0000100
+    mosi_pin = 0;
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 1;
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 0;
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 0;
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 1; //write
+    sclk = 0; #500
+    sclk = 1; #500
+    mosi_pin = 0;
+
+    //Start writing
+
+    sclk = 0; #500
+    sclk = 1; #500
+    if (miso_pin != 1) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][7]);
+      dutpassed = 0;
+    end
+    sclk = 0; #500
+    sclk = 1; #500
+
+    cs = 1; # 500
+
+    if(dut.dm0.memory[7'b0000100] != 8'b11110000) begin
+			$displayb("Test failed after stopping writing: register %b should be value 11110000 but is actually %b.", 7'b0000100, dut.dm0.memory[7'b0000100]);
+      dutpassed = 0;
+		end
+
+
+    //Double checking we can still read successfully from register 0000100
+    sclk = 0; #500
+    sclk = 1; #500
+    if (miso_pin != 1) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][7]);
+      dutpassed = 0;
+    end
+    sclk = 0; #500
+    sclk = 1; #500
+    if (miso_pin != 1) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][6]);
+      dutpassed = 0;
+    end
+    sclk = 0; #500
+    sclk = 1; #500
+    if (miso_pin != 1) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][5]);
+      dutpassed = 0;
+    end
+    sclk = 0; #500
+    sclk = 1; #500
+    if (miso_pin != 1) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][4]);
+      dutpassed = 0;
+    end
+    sclk = 0; #500
+    sclk = 1; #500
+    if (miso_pin != 0) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][3]);
+      dutpassed = 0;
+    end
+    sclk = 0; #500
+    sclk = 1; #500
+    if (miso_pin != 0) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][2]);
+      dutpassed = 0;
+    end
+    sclk = 0; #500
+    sclk = 1; #500
+    if (miso_pin != 0) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][1]);
+      dutpassed = 0;
+    end
+    sclk = 0; #500
+    sclk = 1; #500
+    if (miso_pin != 0) begin
+			$display("Test failed: shift register output does not match the memory at the correspondong address. miso_pin: %b, memory: %b", miso_pin, dut.dm0.memory[7'b0000100][0]);
+      dutpassed = 0;
+    end
+
+    cs = 1; #5000
+
+
+    // Second register tests.
+
     sclk = 0; #500
     sclk = 1; #500
 
